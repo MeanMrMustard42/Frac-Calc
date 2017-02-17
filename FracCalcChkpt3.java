@@ -5,7 +5,7 @@ public class FracCalcChkpt3 {
 
 		public static String equation; // full equation
 		public static String numerator; // first fraction
-		public static String operand; // plus, minus, etc
+		//public static String operand; // plus, minus, etc
 		public static String denominator; // second fraction
 		int indexOfSecondSpace = 0;
 		int indexOfOperation = 0;
@@ -13,31 +13,45 @@ public class FracCalcChkpt3 {
 		boolean on = false;
 		static String secondNumerator;
 		static String secondDenominator;
-	//	static int answer;
+		static int answer = 3;
 		static int numAnswer;
 		static int domAnswer;
+	    static String[] availableOps = {"x", "+", "-", " / "};
+	    static String operand;
+		
 		
 	
 
 		public static void main(String[] args) {
 			Scanner sc = new Scanner(System.in);
-			System.out.print("Welcome to the Fraction Calculator, v. 1.0.0.0. Enter an equation here pls: ");
+			System.out.print("Welcome to the Fraction Calculator, v. 1.0.0.0. Enter an equation here pls: ");			
 			equation = sc.nextLine();
-			sc.close(); 
-	//TODO: Find a way to get the answers recieved from Addition(), Subtraction(), etc and get them returned in produceAnswer().		
-			System.out.println(produceAnswer(equation));
+			for(int i = 0; i< availableOps.length; i++) {
+			if(equation.contains(availableOps[i])) {
+				operand = availableOps[i];
+				
+			}
+			}
+			String str = equation.replaceAll("\\D+"," "); // replace all digits with space
+			
+						sc.close(); 
+	
+			//TODO: Find a way to get the answers recieved from Addition(), Subtraction(), etc and get them returned in produceAnswer().
+			System.out.println(produceAnswer(str, operand));
 		}
 
-		public static String produceAnswer(String input) {
+		
+
+		public static String produceAnswer(String input, String operand) {
 			Scanner console = new Scanner(input); // Parse this individual string.. lol idk if this'll work
 			numerator = console.next();
 			//Integer.parseInt(numerator);
 			denominator = console.next();			
-			//operand = console.next();
+		//	operand = console.next();
 			secondNumerator = console.next();
 			secondDenominator = console.next();
 			//Integer.parseInt(denominator);
-			if(operand.equals("+")) {
+			if(operand == "+") {
             Addition(numerator, operand, denominator, secondNumerator, secondDenominator);				
 			}
 			if(operand.equals("-")) {
@@ -50,10 +64,10 @@ Multiplication(numerator, operand, denominator, secondNumerator, secondDenominat
 Division(numerator, operand, denominator, secondNumerator, secondDenominator);				
 			}
 			
-		//	String answerTwoPointOh = Integer.toString(answer);
+		String answerTwoPointOh = Integer.toString(answer);
 				
 	        console.close();
-			//return answerTwoPointOh; 
+			return answerTwoPointOh; 
 
 	}
 
@@ -96,22 +110,37 @@ Division(numerator, operand, denominator, secondNumerator, secondDenominator);
 			
 		}
 
-		private static void Subtraction(String num, String op, String dom, String num2, String dom2) {
+		private static String Subtraction(String num, String op, String dom, String num2, String dom2) {
 			int intNum = Integer.parseInt(num);
 			int intDom = Integer.parseInt(dom);
 			int intNum2 = Integer.parseInt(num2);
 			int intDom2 = Integer.parseInt(dom2);
-			
-			
+			int commonDenominator = intDom*intDom2;
+			if(intDom!=intDom2) {
+			 intDom = commonDenominator;
+			 intDom2 = commonDenominator;
+			}
+			int answer = intNum - intNum2;
+			String ans = Integer.toString(answer) + Integer.toString(commonDenominator);
+			return ans;
 			
 
 			
 		}
-		private static void Addition(String num, String op, String dom, String num2, String dom2) {
+		private static String Addition(String num, String op, String dom, String num2, String dom2) {
 			int intNum = Integer.parseInt(num);
 			int intDom = Integer.parseInt(dom);
 			int intNum2 = Integer.parseInt(num2);
 			int intDom2 = Integer.parseInt(dom2);
+			int commonDenominator = intDom*intDom2;
+			if(intDom!=intDom2) {
+				 intDom = commonDenominator;
+				 intDom2 = commonDenominator;
+				}
+				int answer = intNum - intNum2;
+				String ans = Integer.toString(answer) + Integer.toString(commonDenominator);
+				return ans;
+				
 
 
 			
